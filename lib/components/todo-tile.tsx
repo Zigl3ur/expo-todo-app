@@ -1,5 +1,6 @@
 import { todo } from "@/types/types";
 import { Checkbox } from "expo-checkbox";
+import { router } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
@@ -23,7 +24,11 @@ export default function TodoTile({ todo }: TodoProps) {
   };
 
   return (
-    <Pressable style={styles.container} onPress={validateTodo}>
+    <Pressable
+      style={styles.container}
+      onPress={validateTodo}
+      onLongPress={() => router.navigate(`/todo/${todo.id}`)}
+    >
       <View style={styles.innerContainer}>
         <Checkbox
           color="#4b5563"
@@ -43,7 +48,7 @@ export default function TodoTile({ todo }: TodoProps) {
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 1,
+    borderBottomWidth: 1,
     borderStyle: "dashed",
     borderColor: "#6b7280",
     paddingVertical: 8,

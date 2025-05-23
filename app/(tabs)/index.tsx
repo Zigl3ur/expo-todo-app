@@ -2,7 +2,7 @@ import TodoTile from "@/lib/components/todo-tile";
 import { getTodos } from "@/lib/db";
 import { todo } from "@/types/types";
 import { Ionicons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
+import { router } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, View } from "react-native";
@@ -11,7 +11,6 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 export default function Index() {
   const insets = useSafeAreaInsets();
   const db = useSQLiteContext();
-  const router = useRouter();
 
   const [todos, setTodos] = useState<todo[]>([]);
 
@@ -32,7 +31,7 @@ export default function Index() {
         style={styles.addButton}
         onPress={() => router.navigate("/todo/create")}
       >
-        <Ionicons name="add" size={25} />
+        <Ionicons name="add" color={"white"} size={25} />
       </Pressable>
     </View>
   );
@@ -48,7 +47,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 100,
-    backgroundColor: "#6b7280",
+    backgroundColor: "#3f8ef7",
     height: 65,
     width: 65,
     right: 0,

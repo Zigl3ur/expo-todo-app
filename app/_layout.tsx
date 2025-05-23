@@ -22,6 +22,10 @@ export default function RootLayout() {
             name="todo/create"
             options={{ presentation: "formSheet", sheetAllowedDetents: [0.5] }}
           />
+          <Stack.Screen
+            name="todo/[id]"
+            options={{ presentation: "formSheet", sheetAllowedDetents: [0.5] }}
+          />
         </Stack>
       </SQLiteProvider>
     </Suspense>
