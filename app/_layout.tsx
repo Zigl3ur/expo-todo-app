@@ -1,4 +1,4 @@
-import LoadingScreen from "@/lib/components/loading-screen";
+import LoadingScreen from "@/components/loading-screen";
 import { init } from "@/lib/db";
 import { Stack } from "expo-router";
 import { openDatabaseSync, SQLiteProvider } from "expo-sqlite";

@@ -1,5 +1,7 @@
-import TodoTile from "@/lib/components/todo-tile";
+import TodoTile from "@/components/todo-tile";
+import { colors } from "@/lib/colors";
 import { getTodos } from "@/lib/db";
+import { useRefetchTodos } from "@/lib/hooks";
 import { todo } from "@/types/types";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
@@ -11,6 +13,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 export default function Index() {
   const insets = useSafeAreaInsets();
   const db = useSQLiteContext();
+  const { refetch } = useRefetchTodos();
 
   const [todos, setTodos] = useState<todo[]>([]);
 
@@ -18,7 +21,7 @@ export default function Index() {
     getTodos(db).then((allRows) => {
       setTodos(allRows);
     });
-  }, [db]);
+  }, [db, refetch]);
 
   return (
     <View style={{ flex: 1, paddingTop: insets.top }}>
@@ -47,11 +50,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 100,
-    backgroundColor: "#3f8ef7",
+    backgroundColor: colors.blue,
     height: 65,
     width: 65,
     right: 0,
     bottom: 0,
-    margin: 15,
+    margin: 25,
   },
 });
