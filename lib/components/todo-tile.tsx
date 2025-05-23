@@ -1,23 +1,25 @@
 import { todo } from "@/types/types";
 import { Checkbox } from "expo-checkbox";
+import { useSQLiteContext } from "expo-sqlite";
 import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { updateTodoState } from "../db";
 
 interface TodoProps {
   todo: todo;
 }
 
 export default function TodoTile({ todo }: TodoProps) {
-  const [checked, setChecked] = useState<boolean>(todo.isDone);
+  const db = useSQLiteContext();
 
-  // live queries ?
-  // https://orm.drizzle.team/docs/connect-expo-sqlite#live-queries
+  const [checked, setChecked] = useState<boolean>(
+    todo.isDone === 0 ? false : true
+  );
+
   const validateTodo = () => {
-    // db.update(todosTable)
-    //   .set({ isDone: !checked })
-    //   .where(eq(todosTable.id, todo.id))
-    //   .then(() => setChecked(!checked));
-    setChecked(!checked);
+    updateTodoState(db, todo.id, !checked).then((success) => {
+      success && setChecked(!checked);
+    });
   };
 
   return (
@@ -48,7 +50,6 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     flexDirection: "row",
-    marginRight: 12,
     alignItems: "center",
     gap: 8,
   },

@@ -11,3 +11,17 @@ export async function getTodos(db: SQLiteDatabase) {
   const result = await db.getAllAsync("SELECT * FROM todos");
   return result as todo[];
 }
+
+export async function updateTodoState(
+  db: SQLiteDatabase,
+  id: number,
+  done: boolean
+): Promise<boolean> {
+  const result = await db.runAsync(
+    "UPDATE todos set isDone = ? WHERE id = ?",
+    done,
+    id
+  );
+
+  return result.changes === 1 ? true : false;
+}
