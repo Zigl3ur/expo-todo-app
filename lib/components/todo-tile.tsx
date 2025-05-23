@@ -2,7 +2,7 @@ import { todo } from "@/types/types";
 import { Checkbox } from "expo-checkbox";
 import { useSQLiteContext } from "expo-sqlite";
 import { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { updateTodoState } from "../db";
 
 interface TodoProps {
@@ -23,7 +23,7 @@ export default function TodoTile({ todo }: TodoProps) {
   };
 
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={validateTodo}>
       <View style={styles.innerContainer}>
         <Checkbox
           color="#4b5563"
@@ -37,16 +37,17 @@ export default function TodoTile({ todo }: TodoProps) {
       <Text style={[styles.description, checked && styles.descriptionChecked]}>
         {todo.description}
       </Text>
-    </View>
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    borderBottomWidth: 1,
+    borderWidth: 1,
     borderStyle: "dashed",
     borderColor: "#6b7280",
     paddingVertical: 8,
+    marginHorizontal: 20,
   },
   innerContainer: {
     flexDirection: "row",

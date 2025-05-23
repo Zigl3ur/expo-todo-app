@@ -1,8 +1,8 @@
+import LoadingScreen from "@/lib/components/loading-screen";
 import { init } from "@/lib/db";
 import { Stack } from "expo-router";
 import { openDatabaseSync, SQLiteProvider } from "expo-sqlite";
 import { Suspense, useEffect } from "react";
-import { Text } from "react-native";
 
 export default function RootLayout() {
   const db = openDatabaseSync("app.db");
@@ -11,12 +11,18 @@ export default function RootLayout() {
     const runInit = async () => await init(db);
 
     runInit();
-  }, [db]);
+  });
 
   return (
-    <Suspense fallback={<Text>Loading...</Text>}>
+    <Suspense fallback={<LoadingScreen />}>
       <SQLiteProvider databaseName="app.db" useSuspense>
-        <Stack screenOptions={{ headerShown: false }} />
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen
+            name="todo/create"
+            options={{ presentation: "formSheet", sheetAllowedDetents: [0.5] }}
+          />
+        </Stack>
       </SQLiteProvider>
     </Suspense>
   );
