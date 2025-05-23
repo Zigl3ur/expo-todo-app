@@ -4,7 +4,7 @@ import { SQLiteDatabase } from "expo-sqlite";
 export async function init(db: SQLiteDatabase) {
   await db.execAsync(`
     CREATE TABLE IF NOT EXISTS todos (id integer PRIMARY KEY AUTOINCREMENT NOT NULL, title text NOT NULL, description text NOT NULL, isDone integer DEFAULT 0 NOT NULL, createdAt text DEFAULT CURRENT_TIMESTAMP NOT NULL, updatedAt text DEFAULT CURRENT_TIMESTAMP NOT NULL);
-    INSERT INTO todos (title, description) SELECT 'Basic todo', 'Explore the app to start' WHERE (NOT EXISTS (SELECT 1 FROM todos WHERE title = 'Basic todo' AND description = 'Explore the app to start')) OR ((SELECT COUNT(*) FROM todos) > 2);`);
+    INSERT INTO todos (title, description) SELECT 'Basic todo', 'Explore the app to start' WHERE (NOT EXISTS (SELECT 1 FROM todos WHERE title = 'Basic todo' AND description = 'Explore the app to start')) OR ((SELECT COUNT(*) FROM todos) < 1);`);
 }
 
 export async function getTodos(db: SQLiteDatabase) {
@@ -28,4 +28,16 @@ export async function updateTodoState(
 
 export async function dropTodos(db: SQLiteDatabase) {
   await db.runAsync("DELETE FROM todos");
+}
+
+export async function createTodo(
+  db: SQLiteDatabase,
+  title: string,
+  description: string
+) {
+  await db.runAsync(
+    "INSERT INTO todos (title, description) VALUES (? , ?)",
+    title,
+    description
+  );
 }

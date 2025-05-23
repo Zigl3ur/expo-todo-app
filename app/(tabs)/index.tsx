@@ -7,7 +7,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";
-import { Pressable, ScrollView, StyleSheet, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Index() {
@@ -25,11 +25,17 @@ export default function Index() {
 
   return (
     <View style={{ flex: 1, paddingTop: insets.top }}>
-      <ScrollView style={styles.container}>
-        {todos.map((todo) => (
-          <TodoTile key={todo.id} todo={todo} />
-        ))}
-      </ScrollView>
+      {todos.length !== 0 ? (
+        <ScrollView style={styles.container}>
+          {todos.map((todo) => (
+            <TodoTile key={todo.id} todo={todo} />
+          ))}
+        </ScrollView>
+      ) : (
+        <View style={styles.viewNoTodos}>
+          <Text style={styles.textNoTodos}>No todos</Text>
+        </View>
+      )}
       <Pressable
         style={styles.addButton}
         onPress={() => router.navigate("/todo/create")}
@@ -57,4 +63,10 @@ const styles = StyleSheet.create({
     bottom: 0,
     margin: 25,
   },
+  viewNoTodos: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  textNoTodos: { fontWeight: "bold", fontSize: 25 },
 });
