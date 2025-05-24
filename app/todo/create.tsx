@@ -1,10 +1,11 @@
+import Button from "@/components/button";
 import Input from "@/components/input";
 import { createTodo } from "@/lib/db";
 import { useRefetchTodos } from "@/lib/hooks";
 import { router } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import React, { useState } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 export default function CreateTodoScreen() {
   const db = useSQLiteContext();
@@ -24,7 +25,7 @@ export default function CreateTodoScreen() {
   return (
     <View style={styles.view}>
       <Text style={styles.title}>New Todo</Text>
-      <View style={{ flex: 1, gap: 15 }}>
+      <View style={{ gap: 20 }}>
         <Input placeholder="Title..." value={title} onChange={setTitle} />
         <Input
           variant="full"
@@ -32,8 +33,8 @@ export default function CreateTodoScreen() {
           value={description}
           onChange={setDescription}
         />
-        <Button title="Save" onPress={handleCreateTodo} />
       </View>
+      <Button text="Save" onPress={handleCreateTodo} />
     </View>
   );
 }
@@ -41,9 +42,7 @@ export default function CreateTodoScreen() {
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    borderWidth: 1,
-    paddingVertical: 25,
-    paddingHorizontal: 35,
+    padding: 20,
     gap: 30,
   },
   title: {

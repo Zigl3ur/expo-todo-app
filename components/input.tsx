@@ -16,11 +16,12 @@ export default function Input({
 }: InputProps) {
   return (
     <TextInput
-      style={[styles.input, variant && { flex: 0.7 }]}
+      style={[styles.input, variant === "full" && { height: 100 }]}
       placeholder={placeholder}
       value={value}
-      onChange={(e) => onChange(e.nativeEvent.text)}
+      onChangeText={(e) => onChange(e)}
       multiline={variant === "full"}
+      textAlignVertical={variant === "full" ? "top" : "auto"}
     />
   );
 }
