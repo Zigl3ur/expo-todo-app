@@ -1,13 +1,12 @@
+import AddTodoButton from "@/components/add-todo-button";
+import SearchBar from "@/components/search-bar";
 import TodoTile from "@/components/todo-tile";
-import { colors } from "@/lib/colors";
 import { getTodos } from "@/lib/db";
 import { useRefetchTodos } from "@/lib/hooks";
 import { todo } from "@/types/types";
-import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function Index() {
@@ -15,6 +14,7 @@ export default function Index() {
   const db = useSQLiteContext();
   const { refetch } = useRefetchTodos();
 
+  const [search, setSearch] = useState<string>("");
   const [todos, setTodos] = useState<todo[]>([]);
 
   useEffect(() => {
@@ -24,9 +24,17 @@ export default function Index() {
   }, [db, refetch]);
 
   return (
-    <View style={{ flex: 1, paddingTop: insets.top }}>
+    <View style={[styles.view, { paddingTop: insets.top }]}>
+      <View style={styles.searchView}>
+        <SearchBar
+          placeholder="Search Todos..."
+          value={search}
+          onChange={setSearch}
+        />
+        <AddTodoButton />
+      </View>
       {todos.length !== 0 ? (
-        <ScrollView style={styles.container}>
+        <ScrollView>
           {todos.map((todo) => (
             <TodoTile key={todo.id} todo={todo} />
           ))}
@@ -36,32 +44,19 @@ export default function Index() {
           <Text style={styles.textNoTodos}>No todos</Text>
         </View>
       )}
-      <Pressable
-        style={styles.addButton}
-        onPress={() => router.navigate("/todo/create")}
-      >
-        <Ionicons name="add" color={"white"} size={25} />
-      </Pressable>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  view: {
     flex: 1,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
   },
-  addButton: {
-    position: "absolute",
+  searchView: {
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 100,
-    backgroundColor: colors.blue,
-    height: 50,
-    width: 50,
-    right: 0,
-    bottom: 0,
-    margin: 25,
+    gap: 12,
   },
   viewNoTodos: {
     flex: 1,

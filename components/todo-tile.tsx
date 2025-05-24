@@ -59,8 +59,7 @@ export default function TodoTile({ todo }: TodoProps) {
 
 const styles = StyleSheet.create({
   pressable: {
-    borderColor: "#6b7280",
-    padding: 8,
+    paddingVertical: 8,
   },
   card: {
     backgroundColor: "white",
@@ -81,15 +80,6 @@ const styles = StyleSheet.create({
   titleDone: {
     color: colors.lightGray,
     textDecorationLine: "line-through",
-  },
-  line: {
-    position: "absolute",
-    height: 4,
-    borderRadius: 2,
-    backgroundColor: colors.lightGray,
-    top: "50%",
-    left: -2,
-    right: -2,
   },
   description: {
     color: colors.darkGray,
