@@ -39,14 +39,9 @@ export default function TodoTile({ todo }: TodoProps) {
           />
 
           {/* Todo Title */}
-          <View>
-            <Text
-              style={[styles.title, checked && { color: colors.lightGray }]}
-            >
-              {todo.title}
-            </Text>
-            {checked && <View style={styles.line} />}
-          </View>
+          <Text style={[styles.title, checked && styles.titleDone]}>
+            {todo.title}
+          </Text>
         </View>
 
         {/* Todo Desc */}
@@ -78,6 +73,10 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: "bold",
     fontSize: 30,
+  },
+  titleDone: {
+    color: colors.lightGray,
+    textDecorationLine: "line-through",
   },
   line: {
     position: "absolute",

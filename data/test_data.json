@@ -1,0 +1,82 @@
+[
+    {
+        "title": "Go grocery shopping",
+        "description": "Buy milk, bread and vegetables for the week"
+    },
+    {
+        "title": "Study for exam",
+        "description": "Review chapters 3 to 5 of the math course"
+    },
+    {
+        "title": "Call the doctor",
+        "description": "Make an appointment for the annual checkup"
+    },
+    {
+        "title": "Clean the house",
+        "description": "Vacuum and dust all rooms"
+    },
+    {
+        "title": "Finish the project",
+        "description": "Complete the PowerPoint presentation for tomorrow's meeting"
+    },
+    {
+        "title": "Take out the trash",
+        "description": "Put the garbage bins on the curb before 7 AM"
+    },
+    {
+        "title": "Water the plants",
+        "description": "Water all indoor and outdoor plants"
+    },
+    {
+        "title": "Pay utility bills",
+        "description": "Pay electricity, water and internet bills online"
+    },
+    {
+        "title": "Exercise at the gym",
+        "description": "Complete 45-minute workout routine"
+    },
+    {
+        "title": "Read a book",
+        "description": "Read at least 20 pages of the current novel"
+    },
+    {
+        "title": "Organize the closet",
+        "description": "Sort clothes and donate items no longer needed"
+    },
+    {
+        "title": "Schedule dentist appointment",
+        "description": "Call dentist office for teeth cleaning appointment"
+    },
+    {
+        "title": "Update resume",
+        "description": "Add recent work experience and skills"
+    },
+    {
+        "title": "Cook dinner",
+        "description": "Prepare healthy meal with vegetables and protein"
+    },
+    {
+        "title": "Walk the dog",
+        "description": "Take 30-minute walk around the neighborhood"
+    },
+    {
+        "title": "Backup computer files",
+        "description": "Save important documents to cloud storage"
+    },
+    {
+        "title": "Plan weekend activities",
+        "description": "Research interesting places to visit this weekend"
+    },
+    {
+        "title": "Learn new language",
+        "description": "Practice Spanish vocabulary for 30 minutes"
+    },
+    {
+        "title": "Fix leaky faucet",
+        "description": "Replace washer in kitchen sink faucet"
+    },
+    {
+        "title": "Write thank you notes",
+        "description": "Send appreciation cards to friends and family"
+    }
+]

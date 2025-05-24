@@ -1,3 +1,4 @@
+import test_data from "@/data/test_data.json";
 import { todo } from "@/types/types";
 import { SQLiteDatabase } from "expo-sqlite";
 
@@ -17,7 +18,9 @@ export async function init(db: SQLiteDatabase) {
  * @returns the array of todos
  */
 export async function getTodos(db: SQLiteDatabase): Promise<todo[]> {
-  const result = await db.getAllAsync("SELECT * FROM todos");
+  const result = await db.getAllAsync(
+    "SELECT * FROM todos ORDER BY createdAt ASC"
+  );
   return result as todo[];
 }
 
@@ -105,4 +108,14 @@ export async function createTodo(
     title,
     description
   );
+}
+
+/**
+ * inset test data in the todos table
+ * @param db the SQLite database connection
+ */
+export async function insertTestData(db: SQLiteDatabase) {
+  test_data.map(async (todo_test) => {
+    await createTodo(db, todo_test.title, todo_test.description);
+  });
 }

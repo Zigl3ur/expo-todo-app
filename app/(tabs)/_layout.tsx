@@ -25,7 +25,6 @@ export default function RootLayout() {
         options={{
           title: "Settings",
           headerShown: false,
-
           tabBarIcon: ({ focused }) => (
             <Ionicons
               name="settings-sharp"

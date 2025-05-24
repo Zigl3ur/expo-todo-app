@@ -26,6 +26,7 @@ export default function Input({
         ]}
         placeholder={placeholder}
         value={value}
+        placeholderTextColor={"white"}
         onChangeText={(e) => onChange(e)}
         multiline={variant === "full"}
         textAlignVertical={variant === "full" ? "top" : "auto"}
@@ -38,10 +39,10 @@ export default function Input({
 const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
-    borderColor: colors.lightGray,
+    borderColor: colors.ultraLightGray,
     padding: 15,
     fontSize: 16,
-    backgroundColor: colors.lightGray,
+    backgroundColor: colors.ultraLightGray,
     borderRadius: 10,
   },
   errorLabel: {

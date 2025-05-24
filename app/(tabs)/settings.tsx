@@ -1,7 +1,7 @@
-import { dropTodos } from "@/lib/db";
+import { dropTodos, insertTestData } from "@/lib/db";
 import { useRefetchTodos } from "@/lib/hooks";
 import { useSQLiteContext } from "expo-sqlite";
-import { Button, Text } from "react-native";
+import { Button } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SettingsScreen() {
@@ -15,9 +15,15 @@ export default function SettingsScreen() {
     });
   };
 
+  const handleTestData = () => {
+    insertTestData(db).then(() => {
+      setRefetch(!refetch);
+    });
+  };
+
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <Text>settings</Text>
+    <SafeAreaView style={{ flex: 1, paddingHorizontal: 10 }}>
+      <Button title="test_data" onPress={handleTestData} />
       <Button title="drop db" onPress={handleTodosDrop} />
     </SafeAreaView>
   );
