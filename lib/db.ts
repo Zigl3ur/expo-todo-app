@@ -7,6 +7,7 @@ import { SQLiteDatabase } from "expo-sqlite";
  * @param db the SQLite database connection
  */
 export async function init(db: SQLiteDatabase) {
+  // TODO: fix this init query
   await db.execAsync(`
     CREATE TABLE IF NOT EXISTS todos (id integer PRIMARY KEY AUTOINCREMENT NOT NULL, title text NOT NULL, description text NOT NULL, isDone integer DEFAULT 0 NOT NULL, createdAt text DEFAULT CURRENT_TIMESTAMP NOT NULL, updatedAt text DEFAULT CURRENT_TIMESTAMP NOT NULL);
     INSERT INTO todos (title, description) SELECT 'Basic todo', 'Explore the app to start' WHERE ((SELECT COUNT(*) FROM todos) < 1);`); // TODO
@@ -63,7 +64,7 @@ export async function getTodosById(
  */
 export async function updateTodoState(
   db: SQLiteDatabase,
-  id: number,
+  id: string,
   done: boolean
 ): Promise<boolean> {
   const result = await db.runAsync(
@@ -78,7 +79,7 @@ export async function updateTodoState(
 /**
  * edit the title and description of a todo by its given id
  * @param db the SQLite database connection
- * @param id the id of the todos to edit
+ * @param id the id of the todo to edit
  * @param title the new todo title
  * @param description the new todo description
  */
@@ -102,6 +103,15 @@ export async function editTodos(
  */
 export async function dropTodos(db: SQLiteDatabase) {
   await db.runAsync("DELETE FROM todos");
+}
+
+/**
+ *  delete a todo based on the given id
+ * @param db the SQLite database connection
+ * @param id the id of the todo to delete
+ */
+export async function deleteTodoById(db: SQLiteDatabase, id: string) {
+  await db.runAsync("DELETE FROM todos WHERE id = ?", id);
 }
 
 /**

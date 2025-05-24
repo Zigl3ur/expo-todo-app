@@ -1,11 +1,12 @@
 import { colors } from "@/lib/colors";
+import { useRefetchTodos, useSettings } from "@/lib/hooks";
 import { todo } from "@/types/types";
 import { Checkbox } from "expo-checkbox";
 import { router } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { updateTodoState } from "../lib/db";
+import { deleteTodoById, updateTodoState } from "../lib/db";
 
 interface TodoProps {
   todo: todo;
@@ -13,15 +14,21 @@ interface TodoProps {
 
 export default function TodoTile({ todo }: TodoProps) {
   const db = useSQLiteContext();
+  const { settings } = useSettings();
+  const { refetch, setRefetch } = useRefetchTodos();
 
   const [checked, setChecked] = useState<boolean>(
     todo.isDone === 0 ? false : true
   );
 
   const validateTodo = () => {
-    updateTodoState(db, todo.id, !checked).then((success) => {
-      success && setChecked(!checked);
-    });
+    if (settings.deleteOnComplete) {
+      deleteTodoById(db, todo.id.toString()).then(() => setRefetch(!refetch));
+    } else {
+      updateTodoState(db, todo.id.toString(), !checked).then((success) => {
+        success && setChecked(!checked);
+      });
+    }
   };
 
   return (

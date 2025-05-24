@@ -1,9 +1,8 @@
 import SwitchSettings from "@/components/switch-settings";
 import { colors } from "@/lib/colors";
 import { dropTodos, insertTestData } from "@/lib/db";
-import { useRefetchTodos } from "@/lib/hooks";
-import { ReadSettings, SaveSettings } from "@/lib/settings";
-import { settings } from "@/types/types";
+import { useRefetchTodos, useSettings } from "@/lib/hooks";
+import { SaveSettings } from "@/lib/settings";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";
@@ -13,21 +12,16 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function SettingsScreen() {
   const db = useSQLiteContext();
   const { refetch, setRefetch } = useRefetchTodos();
+  const { settings, setSettings } = useSettings();
 
-  const [settings, setSettings] = useState<settings>({
-    deleteOnComplete: false,
-  });
   const [switchValue, setSwitchValue] = useState<boolean>(
     settings.deleteOnComplete
   );
 
-  // fetch settings on mount
+  // fetch settings state on mount to ajust switcher pos
   useEffect(() => {
-    ReadSettings().then((loaded) => {
-      setSettings(loaded);
-      setSwitchValue(loaded.deleteOnComplete);
-    });
-  }, []);
+    setSwitchValue(settings.deleteOnComplete);
+  }, [setSwitchValue, settings.deleteOnComplete]);
 
   const handleTodosDrop = () => {
     Alert.alert(
