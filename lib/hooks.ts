@@ -1,7 +1,10 @@
 import { useContext } from "react";
 import { RefetchContext } from "./contexts";
 
-// hook that return the refetch context
+/**
+ * hook to access the refetch context that allow to refetch list of todos
+ * @returns refetch context
+ */
 export function useRefetchTodos() {
   const context = useContext(RefetchContext);
   if (context === undefined) {
