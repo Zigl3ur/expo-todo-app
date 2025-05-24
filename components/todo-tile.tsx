@@ -30,7 +30,7 @@ export default function TodoTile({ todo }: TodoProps) {
       onPress={validateTodo}
       onLongPress={() => router.navigate(`/todo/${todo.id}`)}
     >
-      <View style={{ paddingVertical: 16 }}>
+      <View style={styles.card}>
         <View style={styles.content}>
           <Checkbox
             color={checked ? colors.lightGray : colors.darkGray}
@@ -59,11 +59,13 @@ export default function TodoTile({ todo }: TodoProps) {
 
 const styles = StyleSheet.create({
   pressable: {
-    borderBottomWidth: 2,
-    borderStyle: "dashed",
     borderColor: "#6b7280",
-    paddingVertical: 8,
-    marginHorizontal: 20,
+    padding: 8,
+  },
+  card: {
+    backgroundColor: "white",
+    padding: 16,
+    borderRadius: 15,
   },
   content: {
     flexDirection: "row",
@@ -71,6 +73,8 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   title: {
+    flex: 1,
+    flexWrap: "wrap",
     fontWeight: "bold",
     fontSize: 30,
   },
