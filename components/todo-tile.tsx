@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexWrap: "wrap",
     fontWeight: "bold",
-    fontSize: 30,
+    fontSize: 26,
   },
   titleDone: {
     color: colors.lightGray,
