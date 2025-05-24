@@ -4,14 +4,15 @@ import { editTodos, getTodosById } from "@/lib/db";
 import { useRefetchTodos } from "@/lib/hooks";
 import { router, useLocalSearchParams } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
-import { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { useEffect, useRef, useState } from "react";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function EditTodoScreen() {
   const { id } = useLocalSearchParams();
   const db = useSQLiteContext();
   const { refetch, setRefetch } = useRefetchTodos();
 
+  const descriptionInput = useRef<TextInput>(null);
   const [title, setTitle] = useState<string>("");
   const [titleError, setTittleError] = useState<string | undefined>(undefined);
   const [description, setDescription] = useState<string>("");
@@ -46,9 +47,11 @@ export default function EditTodoScreen() {
           value={title}
           error={titleError}
           onChange={setTitle}
+          onSubmitEditing={() => descriptionInput.current?.focus()}
         />
         <Input
           variant="full"
+          inputRef={descriptionInput}
           placeholder="Description..."
           value={description}
           onChange={setDescription}

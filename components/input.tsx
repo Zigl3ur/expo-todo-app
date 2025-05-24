@@ -1,20 +1,25 @@
 import { colors } from "@/lib/colors";
+import { Ref } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
 interface InputProps {
   variant?: "full";
+  inputRef?: Ref<TextInput>;
   placeholder: string;
   value: string;
   error?: string;
   onChange: (value: string) => void;
+  onSubmitEditing?: () => void;
 }
 
 export default function Input({
   variant,
+  inputRef,
   placeholder,
   value,
   error,
   onChange,
+  onSubmitEditing,
 }: InputProps) {
   return (
     <View>
@@ -24,10 +29,13 @@ export default function Input({
           variant === "full" && { height: 100 },
           error && styles.errorBorder,
         ]}
+        ref={inputRef}
         placeholder={placeholder}
         value={value}
+        returnKeyType="next"
         placeholderTextColor={"white"}
         onChangeText={(e) => onChange(e)}
+        onSubmitEditing={onSubmitEditing}
         multiline={variant === "full"}
         textAlignVertical={variant === "full" ? "top" : "auto"}
       />

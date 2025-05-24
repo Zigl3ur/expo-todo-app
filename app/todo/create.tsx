@@ -4,13 +4,14 @@ import { createTodo } from "@/lib/db";
 import { useRefetchTodos } from "@/lib/hooks";
 import { router } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
-import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function CreateTodoScreen() {
   const db = useSQLiteContext();
   const { refetch, setRefetch } = useRefetchTodos();
 
+  const descriptionInput = useRef<TextInput>(null);
   const [title, setTitle] = useState<string>("");
   const [titleError, setTittleError] = useState<string | undefined>(undefined);
   const [description, setDescription] = useState<string>("");
@@ -37,9 +38,11 @@ export default function CreateTodoScreen() {
           value={title}
           error={titleError}
           onChange={setTitle}
+          onSubmitEditing={() => descriptionInput.current?.focus()}
         />
         <Input
           variant="full"
+          inputRef={descriptionInput}
           placeholder="Description..."
           value={description}
           onChange={setDescription}
