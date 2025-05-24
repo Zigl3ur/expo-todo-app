@@ -1,14 +1,33 @@
+import SwitchSettings from "@/components/switch-settings";
 import { colors } from "@/lib/colors";
 import { dropTodos, insertTestData } from "@/lib/db";
 import { useRefetchTodos } from "@/lib/hooks";
+import { ReadSettings, SaveSettings } from "@/lib/settings";
+import { settings } from "@/types/types";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { useSQLiteContext } from "expo-sqlite";
+import { useEffect, useState } from "react";
 import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SettingsScreen() {
   const db = useSQLiteContext();
   const { refetch, setRefetch } = useRefetchTodos();
+
+  const [settings, setSettings] = useState<settings>({
+    deleteOnComplete: false,
+  });
+  const [switchValue, setSwitchValue] = useState<boolean>(
+    settings.deleteOnComplete
+  );
+
+  // fetch settings on mount
+  useEffect(() => {
+    ReadSettings().then((loaded) => {
+      setSettings(loaded);
+      setSwitchValue(loaded.deleteOnComplete);
+    });
+  }, []);
 
   const handleTodosDrop = () => {
     Alert.alert(
@@ -47,6 +66,13 @@ export default function SettingsScreen() {
     ]);
   };
 
+  const handleSwitch = () => {
+    const newSettings = { deleteOnComplete: !settings.deleteOnComplete };
+    setSettings(newSettings);
+    setSwitchValue(newSettings.deleteOnComplete);
+    SaveSettings(newSettings);
+  };
+
   return (
     <SafeAreaView style={styles.safeview}>
       <View style={styles.view}>
@@ -60,6 +86,7 @@ export default function SettingsScreen() {
             Delete all todos
           </Text>
         </Pressable>
+        <SwitchSettings value={switchValue} onChange={handleSwitch} />
       </View>
     </SafeAreaView>
   );
@@ -86,6 +113,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    fontWeight: "700",
+    fontWeight: "600",
   },
 });

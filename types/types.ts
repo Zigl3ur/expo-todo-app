@@ -6,3 +6,7 @@ export type todo = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type settings = {
+  deleteOnComplete: boolean;
+};
