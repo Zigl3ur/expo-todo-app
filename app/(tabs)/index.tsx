@@ -1,7 +1,7 @@
 import AddTodoButton from "@/components/add-todo-button";
 import SearchBar from "@/components/search-bar";
 import TodoTile from "@/components/todo-tile";
-import { getTodos } from "@/lib/db";
+import { getTodos, searchTodos } from "@/lib/db";
 import { useRefetchTodos } from "@/lib/hooks";
 import { todo } from "@/types/types";
 import { useSQLiteContext } from "expo-sqlite";
@@ -17,6 +17,19 @@ export default function Index() {
   const [search, setSearch] = useState<string>("");
   const [todos, setTodos] = useState<todo[]>([]);
 
+  // debounce ?
+  const handleSearch = (value: string) => {
+    setSearch(value);
+    if (value.trim() === "") {
+      getTodos(db).then((allRows) => {
+        setTodos(allRows);
+      });
+    } else
+      searchTodos(db, value).then((result) => {
+        setTodos(result);
+      });
+  };
+
   useEffect(() => {
     getTodos(db).then((allRows) => {
       setTodos(allRows);
@@ -29,7 +42,7 @@ export default function Index() {
         <SearchBar
           placeholder="Search Todos..."
           value={search}
-          onChange={setSearch}
+          onChange={handleSearch}
         />
         <AddTodoButton />
       </View>
@@ -41,7 +54,7 @@ export default function Index() {
         </ScrollView>
       ) : (
         <View style={styles.viewNoTodos}>
-          <Text style={styles.textNoTodos}>No todos</Text>
+          <Text style={styles.textNoTodos}>No todos found</Text>
         </View>
       )}
     </View>

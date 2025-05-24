@@ -3,7 +3,7 @@ import { todo } from "@/types/types";
 import { Checkbox } from "expo-checkbox";
 import { router } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { updateTodoState } from "../lib/db";
 
@@ -18,11 +18,11 @@ export default function TodoTile({ todo }: TodoProps) {
     todo.isDone === 0 ? false : true
   );
 
-  const validateTodo = useCallback(() => {
+  const validateTodo = () => {
     updateTodoState(db, todo.id, !checked).then((success) => {
       success && setChecked(!checked);
     });
-  }, [db, todo.id, checked]);
+  };
 
   return (
     <Pressable

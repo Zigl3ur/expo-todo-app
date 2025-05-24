@@ -1,14 +1,15 @@
 import { colors } from "@/lib/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import { Pressable, StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 
 export default function AddTodoButton() {
   return (
-    <Pressable onPress={() => router.navigate("/todo/create")}>
-      <View style={styles.addButton}>
-        <Ionicons name="add" size={20} color={"white"} />
-      </View>
+    <Pressable
+      style={styles.addButton}
+      onPress={() => router.navigate("/todo/create")}
+    >
+      <Ionicons name="add" size={20} color={"white"} />
     </Pressable>
   );
 }

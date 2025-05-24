@@ -24,6 +24,18 @@ export async function getTodos(db: SQLiteDatabase): Promise<todo[]> {
   return result as todo[];
 }
 
+export async function searchTodos(
+  db: SQLiteDatabase,
+  title: string
+): Promise<todo[]> {
+  const result = await db.getAllAsync(
+    "SELECT * FROM todos WHERE title LIKE ?",
+    `%${title}%`
+  );
+
+  return result as todo[];
+}
+
 /**
  * fetch todo data from given todo id
  * @param db the SQLite database connection

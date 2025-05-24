@@ -1,6 +1,5 @@
 import { colors } from "@/lib/colors";
 import { Ionicons } from "@expo/vector-icons";
-import { useRef } from "react";
 import { Platform, StyleSheet, TextInput, View } from "react-native";
 
 interface SearchBarProps {
@@ -14,13 +13,10 @@ export default function SearchBar({
   value,
   onChange,
 }: SearchBarProps) {
-  const inputRef = useRef<TextInput>(null);
-
   return (
     <View style={styles.view}>
       <Ionicons name="search" size={20} />
       <TextInput
-        ref={inputRef}
         style={styles.input}
         value={value}
         onChangeText={(e) => onChange(e)}
@@ -31,7 +27,7 @@ export default function SearchBar({
         name="close-circle"
         size={20}
         color={colors.darkGray}
-        onPress={() => inputRef.current?.clear()}
+        onPress={() => onChange("")}
       />
     </View>
   );
