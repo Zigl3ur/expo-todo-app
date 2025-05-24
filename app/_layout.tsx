@@ -27,20 +27,18 @@ export default function RootLayout() {
               options={{
                 headerShown: false,
                 presentation: "formSheet",
-                sheetAllowedDetents: [0.5],
-                sheetGrabberVisible: true,
+                sheetAllowedDetents: [0.5, 0.7],
               }}
             />
             <Stack.Screen
               name="todo/[id]"
               options={{
                 presentation: "formSheet",
-                sheetAllowedDetents: [0.4],
+                sheetAllowedDetents: [0.5, 0.7],
                 sheetGrabberVisible: true,
               }}
             />
           </Stack>
-          Z
         </SQLiteProvider>
       </Suspense>
     </RefetchContext.Provider>
