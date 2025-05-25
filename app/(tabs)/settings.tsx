@@ -18,7 +18,7 @@ export default function SettingsScreen() {
     settings.deleteOnComplete
   );
 
-  // fetch settings state on mount to ajust switcher pos
+  // fetch settings
   useEffect(() => {
     setSwitchValue(settings.deleteOnComplete);
   }, [setSwitchValue, settings.deleteOnComplete]);
@@ -69,22 +69,30 @@ export default function SettingsScreen() {
 
   return (
     <SafeAreaView style={styles.safeview}>
-      <View style={styles.view}>
-        <Pressable onPress={handleTestData} style={styles.pressable}>
-          <FontAwesome5 name="database" size={20} />
-          <Text style={styles.text}>Add test data</Text>
-        </Pressable>
-        <Pressable onPress={handleTodosDrop} style={styles.pressable}>
-          <FontAwesome5 name="trash" size={20} color={colors.red} />
-          <Text style={[styles.text, { color: colors.red }]}>
-            Delete all todos
-          </Text>
-        </Pressable>
-        <SwitchSettings
-          value={switchValue}
-          onChange={handleSwitch}
-          text="Delete todo on complete"
-        />
+      <View>
+        <Text style={styles.title}>Settings</Text>
+        <View style={styles.view}>
+          <Pressable onPress={handleTestData} style={styles.pressable}>
+            <FontAwesome5 name="database" size={20} />
+            <Text style={styles.text}>Add test data</Text>
+          </Pressable>
+        </View>
+      </View>
+      <View>
+        <Text style={[styles.title, { color: colors.red }]}>Danger Zone</Text>
+        <View style={styles.view}>
+          <SwitchSettings
+            value={switchValue}
+            onChange={handleSwitch}
+            text="Delete todo on complete"
+          />
+          <Pressable onPress={handleTodosDrop} style={styles.pressable}>
+            <FontAwesome5 name="trash" size={20} color={colors.red} />
+            <Text style={[styles.text, { color: colors.red }]}>
+              Delete all todos
+            </Text>
+          </Pressable>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -95,6 +103,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     paddingTop: 40,
+    gap: 30,
   },
   view: {
     borderRadius: 15,
@@ -112,5 +121,10 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     fontWeight: "600",
+  },
+  title: {
+    fontSize: 26,
+    fontWeight: "500",
+    marginBottom: 5,
   },
 });

@@ -10,7 +10,7 @@ export async function init(db: SQLiteDatabase) {
   // TODO: fix this init query
   await db.execAsync(`
     CREATE TABLE IF NOT EXISTS todos (id integer PRIMARY KEY AUTOINCREMENT NOT NULL, title text NOT NULL, description text NOT NULL, isDone integer DEFAULT 0 NOT NULL, createdAt text DEFAULT CURRENT_TIMESTAMP NOT NULL, updatedAt text DEFAULT CURRENT_TIMESTAMP NOT NULL);
-    INSERT INTO todos (title, description) SELECT 'Basic todo', 'Explore the app to start' WHERE ((SELECT COUNT(*) FROM todos) < 1);`); // TODO
+    INSERT INTO todos (title, description) SELECT 'Welcome !', 'Create your first todo by clicking on the plus sign in the top right corner.' WHERE ((SELECT COUNT(*) FROM todos) < 1);`); // TODO
 }
 
 /**

@@ -14,7 +14,7 @@ export default function SwitchSettings({
   return (
     <Pressable style={styles.pressable} onPress={() => onChange(!value)}>
       <Switch value={value} onValueChange={onChange} />
-      <Text style={[styles.text, { alignSelf: "center" }]}>{text}</Text>
+      <Text style={styles.text}>{text}</Text>
     </Pressable>
   );
 }
@@ -34,5 +34,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 16,
     fontWeight: "600",
+    alignSelf: "center",
   },
 });
