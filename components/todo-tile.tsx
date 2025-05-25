@@ -23,7 +23,11 @@ export default function TodoTile({ todo }: TodoProps) {
 
   const validateTodo = () => {
     if (settings.deleteOnComplete) {
-      deleteTodoById(db, todo.id.toString()).then(() => setRefetch(!refetch));
+      if (checked) {
+        setChecked(!checked);
+      } else {
+        deleteTodoById(db, todo.id.toString()).then(() => setRefetch(!refetch));
+      }
     } else {
       updateTodoState(db, todo.id.toString(), !checked).then((success) => {
         success && setChecked(!checked);

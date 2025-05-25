@@ -10,7 +10,7 @@ export default function SwitchSettings({
   onChange,
 }: SwitchSettingsProps) {
   return (
-    <Pressable style={styles.pressable}>
+    <Pressable style={styles.pressable} onPress={() => onChange(!value)}>
       <Switch value={value} onValueChange={onChange} />
       <Text style={[styles.text, { alignSelf: "center" }]}>
         Delete todo on complete
