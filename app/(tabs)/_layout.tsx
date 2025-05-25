@@ -1,9 +1,21 @@
 import { colors } from "@/lib/colors";
+import { init } from "@/lib/db";
 import { Ionicons } from "@expo/vector-icons";
 import FontAwesome from "@expo/vector-icons/FontAwesome5";
 import { Tabs } from "expo-router";
+import { useSQLiteContext } from "expo-sqlite";
+import { useEffect } from "react";
 
-export default function RootLayout() {
+export default function TabsLayout() {
+  const db = useSQLiteContext();
+
+  // init query to populate db with one placeholder todo
+  useEffect(() => {
+    const initQuery = async () => await init(db);
+
+    initQuery();
+  }, [db]);
+
   return (
     <Tabs>
       <Tabs.Screen

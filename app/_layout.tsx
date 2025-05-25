@@ -1,33 +1,27 @@
 import LoadingScreen from "@/components/loading-screen";
 import { RefetchContext, SettingsContext } from "@/lib/contexts";
-import { init } from "@/lib/db";
 import { ReadSettings } from "@/lib/settings";
 import { settings } from "@/types/types";
 import { Stack } from "expo-router";
-import { openDatabaseSync, SQLiteProvider } from "expo-sqlite";
+import { SQLiteProvider } from "expo-sqlite";
 import { Suspense, useEffect, useState } from "react";
 
 export default function RootLayout() {
-  const db = openDatabaseSync("app.db");
-
   const [settings, setSettings] = useState<settings>({
     deleteOnComplete: false,
   });
   const [refetch, setRefetch] = useState<boolean>(false);
 
+  // get saved settings on mount
   useEffect(() => {
-    // TODO: do it prettier
-    const runInit = async () => await init(db);
-
-    runInit();
     ReadSettings().then((settings) => setSettings(settings));
-  });
+  }, []);
 
   return (
-    <SettingsContext.Provider value={{ settings, setSettings }}>
-      <RefetchContext.Provider value={{ refetch, setRefetch }}>
-        <Suspense fallback={<LoadingScreen />}>
-          <SQLiteProvider databaseName="app.db" useSuspense>
+    <Suspense fallback={<LoadingScreen />}>
+      <SQLiteProvider databaseName="app.db" useSuspense>
+        <SettingsContext.Provider value={{ settings, setSettings }}>
+          <RefetchContext.Provider value={{ refetch, setRefetch }}>
             <Stack screenOptions={{ headerShown: false }}>
               <Stack.Screen name="(tabs)" />
               <Stack.Screen
@@ -47,9 +41,9 @@ export default function RootLayout() {
                 }}
               />
             </Stack>
-          </SQLiteProvider>
-        </Suspense>
-      </RefetchContext.Provider>
-    </SettingsContext.Provider>
+          </RefetchContext.Provider>
+        </SettingsContext.Provider>
+      </SQLiteProvider>
+    </Suspense>
   );
 }
