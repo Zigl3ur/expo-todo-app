@@ -1,7 +1,9 @@
 import Button from "@/components/button";
 import Input from "@/components/input";
-import { editTodos, getTodosById } from "@/lib/db";
+import { colors } from "@/lib/colors";
+import { deleteTodoById, editTodos, getTodosById } from "@/lib/db";
 import { useRefetchTodos } from "@/lib/hooks";
+import { FontAwesome5 } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useRef, useState } from "react";
@@ -19,7 +21,7 @@ export default function EditTodoScreen() {
 
   // fetch todo data
   useEffect(() => {
-    getTodosById(db, id as string).then((todo) => {
+    getTodosById(db, id.toString()).then((todo) => {
       setTitle(todo.title);
       setDescription(todo.description || "");
     });
@@ -33,6 +35,13 @@ export default function EditTodoScreen() {
 
   const handleEditTodo = () => {
     editTodos(db, id as string, title, description).then(() => {
+      setRefetch(!refetch);
+      router.dismiss();
+    });
+  };
+
+  const handleDeleteTodo = () => {
+    deleteTodoById(db, id.toString()).then(() => {
       setRefetch(!refetch);
       router.dismiss();
     });
@@ -57,11 +66,21 @@ export default function EditTodoScreen() {
           onChange={setDescription}
         />
       </View>
-      <Button
-        text="Save"
-        disabled={titleError ? true : false}
-        onPress={handleEditTodo}
-      />
+      <View style={styles.buttonView}>
+        <View style={{ flex: 1 }}>
+          <Button
+            content="Save"
+            color={colors.blue}
+            disabled={titleError ? true : false}
+            onPress={handleEditTodo}
+          />
+        </View>
+        <Button
+          content={<FontAwesome5 name="trash" size={20} color="white" />}
+          color={colors.red}
+          onPress={handleDeleteTodo}
+        />
+      </View>
     </View>
   );
 }
@@ -71,6 +90,10 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     gap: 20,
+  },
+  buttonView: {
+    flexDirection: "row",
+    gap: 12,
   },
   title: {
     fontSize: 30,

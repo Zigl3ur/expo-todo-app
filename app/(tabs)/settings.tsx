@@ -80,7 +80,11 @@ export default function SettingsScreen() {
             Delete all todos
           </Text>
         </Pressable>
-        <SwitchSettings value={switchValue} onChange={handleSwitch} />
+        <SwitchSettings
+          value={switchValue}
+          onChange={handleSwitch}
+          text="Delete todo on complete"
+        />
       </View>
     </SafeAreaView>
   );

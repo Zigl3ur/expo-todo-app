@@ -1,5 +1,6 @@
 import Button from "@/components/button";
 import Input from "@/components/input";
+import { colors } from "@/lib/colors";
 import { createTodo } from "@/lib/db";
 import { useRefetchTodos } from "@/lib/hooks";
 import { router } from "expo-router";
@@ -49,7 +50,8 @@ export default function CreateTodoScreen() {
         />
       </View>
       <Button
-        text="Save"
+        content="Save"
+        color={colors.blue}
         disabled={titleError ? true : false}
         onPress={handleCreateTodo}
       />

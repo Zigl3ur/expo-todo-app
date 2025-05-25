@@ -1,17 +1,33 @@
 import { colors } from "@/lib/colors";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { ColorValue, Pressable, StyleSheet, Text, View } from "react-native";
 
 interface ButtonProps {
-  text: string;
+  content: string | React.ReactNode;
+  color: ColorValue;
   disabled?: boolean;
   onPress: () => void;
 }
 
-export default function Button({ text, disabled, onPress }: ButtonProps) {
+export default function Button({
+  content,
+  color,
+  disabled,
+  onPress,
+}: ButtonProps) {
   return (
     <Pressable onPress={onPress} disabled={disabled}>
-      <View style={[styles.view, disabled && { backgroundColor: colors.gray }]}>
-        <Text style={styles.text}>{text}</Text>
+      <View
+        style={[
+          styles.view,
+          { backgroundColor: color },
+          disabled && { backgroundColor: colors.gray },
+        ]}
+      >
+        {typeof content === "string" ? (
+          <Text style={styles.text}>{content}</Text>
+        ) : (
+          content
+        )}
       </View>
     </Pressable>
   );
@@ -19,7 +35,6 @@ export default function Button({ text, disabled, onPress }: ButtonProps) {
 
 const styles = StyleSheet.create({
   view: {
-    backgroundColor: colors.blue,
     borderRadius: 10,
     padding: 15,
   },

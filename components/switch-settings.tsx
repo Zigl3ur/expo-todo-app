@@ -1,20 +1,20 @@
 import { Platform, Pressable, StyleSheet, Switch, Text } from "react-native";
 
 interface SwitchSettingsProps {
+  text: string;
   value: boolean;
   onChange: (value: boolean) => void;
 }
 
 export default function SwitchSettings({
+  text,
   value,
   onChange,
 }: SwitchSettingsProps) {
   return (
     <Pressable style={styles.pressable} onPress={() => onChange(!value)}>
       <Switch value={value} onValueChange={onChange} />
-      <Text style={[styles.text, { alignSelf: "center" }]}>
-        Delete todo on complete
-      </Text>
+      <Text style={[styles.text, { alignSelf: "center" }]}>{text}</Text>
     </Pressable>
   );
 }
