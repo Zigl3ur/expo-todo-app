@@ -1,11 +1,12 @@
 import Button from "@/components/button";
+import CustomSwitch from "@/components/custom-switch";
 import Input from "@/components/input";
 import { colors } from "@/lib/colors";
 import { createTodo } from "@/lib/db";
 import { useRefetchTodos } from "@/lib/hooks";
 import { router } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function CreateTodoScreen() {
@@ -16,15 +17,16 @@ export default function CreateTodoScreen() {
   const [title, setTitle] = useState<string>("");
   const [titleError, setTittleError] = useState<string | undefined>(undefined);
   const [description, setDescription] = useState<string>("");
+  const [priority, setPriority] = useState<boolean>(false);
 
   // check if a todo title is provided
   useEffect(() => {
     if (title.length === 0) setTittleError("A todo title is needed");
-    else setTittleError(undefined);
+    else setTittleError("");
   }, [title]);
 
   const handleCreateTodo = () => {
-    createTodo(db, title, description).then(() => {
+    createTodo(db, title, description, priority).then(() => {
       setRefetch(!refetch);
       router.dismiss();
     });
@@ -33,6 +35,7 @@ export default function CreateTodoScreen() {
   return (
     <View style={styles.view}>
       <Text style={styles.title}>New Todo</Text>
+
       <View style={{ gap: 10 }}>
         <Input
           placeholder="Title..."
@@ -49,6 +52,11 @@ export default function CreateTodoScreen() {
           onChange={setDescription}
         />
       </View>
+      <CustomSwitch
+        text="High Priority"
+        value={priority}
+        onChange={setPriority}
+      />
       <Button
         content="Save"
         color={colors.blue}

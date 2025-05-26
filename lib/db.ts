@@ -9,7 +9,7 @@ import { SQLiteDatabase } from "expo-sqlite";
 export async function init(db: SQLiteDatabase) {
   // TODO: fix this init query
   await db.execAsync(`
-    CREATE TABLE IF NOT EXISTS todos (id integer PRIMARY KEY AUTOINCREMENT NOT NULL, title text NOT NULL, description text NOT NULL, isDone integer DEFAULT 0 NOT NULL, createdAt text DEFAULT CURRENT_TIMESTAMP NOT NULL, updatedAt text DEFAULT CURRENT_TIMESTAMP NOT NULL);
+    CREATE TABLE IF NOT EXISTS todos (id integer PRIMARY KEY AUTOINCREMENT NOT NULL, title text NOT NULL, description text NOT NULL, priority integer DEFAULT 0 NOT NULL, isDone integer DEFAULT 0 NOT NULL, createdAt text DEFAULT CURRENT_TIMESTAMP NOT NULL, updatedAt text DEFAULT CURRENT_TIMESTAMP NOT NULL);
     INSERT INTO todos (title, description) SELECT 'Welcome !', 'Create your first todo by clicking on the plus sign in the top right corner.' WHERE ((SELECT COUNT(*) FROM todos) < 1);`); // TODO
 }
 
@@ -48,7 +48,7 @@ export async function getTodosById(
   id: string
 ): Promise<todo> {
   const result = await db.getFirstAsync(
-    "SELECT title, description FROM todos WHERE id = ?;",
+    "SELECT * FROM todos WHERE id = ?;",
     id
   );
 
@@ -87,12 +87,14 @@ export async function editTodos(
   db: SQLiteDatabase,
   id: string,
   title: string,
-  description: string
+  description: string,
+  priority: boolean
 ) {
   await db.runAsync(
-    "UPDATE todos SET title = ?, description = ?, updatedAt = CURRENT_TIMESTAMP WHERE id = ?",
+    "UPDATE todos SET title = ?, description = ?, priority = ?, updatedAt = CURRENT_TIMESTAMP WHERE id = ?",
     title,
     description,
+    priority,
     id
   );
 }
@@ -123,12 +125,14 @@ export async function deleteTodoById(db: SQLiteDatabase, id: string) {
 export async function createTodo(
   db: SQLiteDatabase,
   title: string,
-  description: string
+  description: string,
+  priority: boolean
 ) {
   await db.runAsync(
-    "INSERT INTO todos (title, description) VALUES (? , ?)",
+    "INSERT INTO todos (title, description, priority) VALUES (?, ?, ?)",
     title,
-    description
+    description,
+    priority
   );
 }
 
@@ -138,6 +142,11 @@ export async function createTodo(
  */
 export async function insertTestData(db: SQLiteDatabase) {
   test_data.map(async (todo_test) => {
-    await createTodo(db, todo_test.title, todo_test.description);
+    await createTodo(
+      db,
+      todo_test.title,
+      todo_test.description,
+      todo_test.priority
+    );
   });
 }

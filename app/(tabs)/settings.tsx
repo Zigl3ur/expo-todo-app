@@ -1,4 +1,4 @@
-import SwitchSettings from "@/components/switch-settings";
+import SwitchSettings from "@/components/custom-switch";
 import { colors } from "@/lib/colors";
 import { dropTodos, insertTestData } from "@/lib/db";
 import { useRefetchTodos, useSettings } from "@/lib/hooks";

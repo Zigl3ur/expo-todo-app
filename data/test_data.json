@@ -1,82 +1,102 @@
 [
     {
         "title": "Go grocery shopping",
-        "description": "Buy milk, bread and vegetables for the week"
+        "description": "Buy milk, bread and vegetables for the week",
+        "priority": true
     },
     {
         "title": "Study for exam",
-        "description": "Review chapters 3 to 5 of the math course"
+        "description": "Review chapters 3 to 5 of the math course",
+        "priority": true
     },
     {
         "title": "Call the doctor",
-        "description": "Make an appointment for the annual checkup"
+        "description": "Make an appointment for the annual checkup",
+        "priority": true
     },
     {
         "title": "Clean the house",
-        "description": "Vacuum and dust all rooms"
+        "description": "Vacuum and dust all rooms",
+        "priority": false
     },
     {
         "title": "Finish the project",
-        "description": "Complete the PowerPoint presentation for tomorrow's meeting"
+        "description": "Complete the PowerPoint presentation for tomorrow's meeting",
+        "priority": true
     },
     {
         "title": "Take out the trash",
-        "description": "Put the garbage bins on the curb before 7 AM"
+        "description": "Put the garbage bins on the curb before 7 AM",
+        "priority": true
     },
     {
         "title": "Water the plants",
-        "description": "Water all indoor and outdoor plants"
+        "description": "Water all indoor and outdoor plants",
+        "priority": false
     },
     {
         "title": "Pay utility bills",
-        "description": "Pay electricity, water and internet bills online"
+        "description": "Pay electricity, water and internet bills online",
+        "priority": true
     },
     {
         "title": "Exercise at the gym",
-        "description": "Complete 45-minute workout routine"
+        "description": "Complete 45-minute workout routine",
+        "priority": false
     },
     {
         "title": "Read a book",
-        "description": "Read at least 20 pages of the current novel"
+        "description": "Read at least 20 pages of the current novel",
+        "priority": false
     },
     {
         "title": "Organize the closet",
-        "description": "Sort clothes and donate items no longer needed"
+        "description": "Sort clothes and donate items no longer needed",
+        "priority": false
     },
     {
         "title": "Schedule dentist appointment",
-        "description": "Call dentist office for teeth cleaning appointment"
+        "description": "Call dentist office for teeth cleaning appointment",
+        "priority": true
     },
     {
         "title": "Update resume",
-        "description": "Add recent work experience and skills"
+        "description": "Add recent work experience and skills",
+        "priority": false
     },
     {
         "title": "Cook dinner",
-        "description": "Prepare healthy meal with vegetables and protein"
+        "description": "Prepare healthy meal with vegetables and protein",
+        "priority": true
     },
     {
         "title": "Walk the dog",
-        "description": "Take 30-minute walk around the neighborhood"
+        "description": "Take 30-minute walk around the neighborhood",
+        "priority": true
     },
     {
         "title": "Backup computer files",
-        "description": "Save important documents to cloud storage"
+        "description": "Save important documents to cloud storage",
+        "priority": true
     },
     {
         "title": "Plan weekend activities",
-        "description": "Research interesting places to visit this weekend"
+        "description": "Research interesting places to visit this weekend",
+        "priority": false
     },
     {
         "title": "Learn new language",
-        "description": "Practice Spanish vocabulary for 30 minutes"
+        "description": "Practice Spanish vocabulary for 30 minutes",
+        "priority": false
     },
     {
         "title": "Fix leaky faucet",
-        "description": "Replace washer in kitchen sink faucet"
+        "description": "Replace washer in kitchen sink faucet",
+        "priority": true
     },
     {
         "title": "Write thank you notes",
-        "description": "Send appreciation cards to friends and family"
+        "description": "Send appreciation cards to friends and family",
+        "priority": false
     }
 ]

@@ -39,7 +39,7 @@ export default function Input({
         multiline={variant === "full"}
         textAlignVertical={variant === "full" ? "top" : "auto"}
       />
-      <Text style={styles.errorLabel}>{error}</Text>
+      {error && <Text style={styles.errorLabel}>{error}</Text>}
     </View>
   );
 }

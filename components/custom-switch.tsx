@@ -6,7 +6,7 @@ interface SwitchSettingsProps {
   onChange: (value: boolean) => void;
 }
 
-export default function SwitchSettings({
+export default function CustomSwitch({
   text,
   value,
   onChange,

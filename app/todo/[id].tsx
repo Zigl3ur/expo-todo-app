@@ -1,4 +1,5 @@
 import Button from "@/components/button";
+import CustomSwitch from "@/components/custom-switch";
 import Input from "@/components/input";
 import { colors } from "@/lib/colors";
 import { deleteTodoById, editTodos, getTodosById } from "@/lib/db";
@@ -16,25 +17,27 @@ export default function EditTodoScreen() {
 
   const descriptionInput = useRef<TextInput>(null);
   const [title, setTitle] = useState<string>("");
-  const [titleError, setTittleError] = useState<string | undefined>(undefined);
   const [description, setDescription] = useState<string>("");
+  const [titleError, setTittleError] = useState<string>("");
+  const [priority, setPriority] = useState<boolean>(false);
 
   // fetch todo data
   useEffect(() => {
     getTodosById(db, id.toString()).then((todo) => {
       setTitle(todo.title);
       setDescription(todo.description || "");
+      setPriority(Boolean(todo.priority));
     });
   }, [db, id]);
 
   // check if a todo title is provided
   useEffect(() => {
     if (title.length === 0) setTittleError("A todo title is needed");
-    else setTittleError(undefined);
+    else setTittleError("");
   }, [title]);
 
   const handleEditTodo = () => {
-    editTodos(db, id as string, title, description).then(() => {
+    editTodos(db, id as string, title, description, priority).then(() => {
       setRefetch(!refetch);
       router.dismiss();
     });
@@ -66,6 +69,11 @@ export default function EditTodoScreen() {
           onChange={setDescription}
         />
       </View>
+      <CustomSwitch
+        text="High Priority"
+        value={priority}
+        onChange={setPriority}
+      />
       <View style={styles.buttonView}>
         <View style={{ flex: 1 }}>
           <Button

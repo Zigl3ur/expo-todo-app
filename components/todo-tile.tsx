@@ -17,9 +17,7 @@ export default function TodoTile({ todo }: TodoProps) {
   const { settings } = useSettings();
   const { refetch, setRefetch } = useRefetchTodos();
 
-  const [checked, setChecked] = useState<boolean>(
-    todo.isDone === 0 ? false : true
-  );
+  const [checked, setChecked] = useState<boolean>(todo.isDone);
 
   const validateTodo = () => {
     if (settings.deleteOnComplete) {
