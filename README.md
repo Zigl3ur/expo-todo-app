@@ -31,16 +31,21 @@ npm install
 3. Run the app
 
 ```bash
-npx expo start
+npm run start
 ```
 
-4. Open the app
-
-- With Expo Go app on your mobile device
-
-- Or use an Android emulator or iOS simulator
+- instead if you want to open the app in an Android emulator or iOS simulator, you can use:
 
 ```bash
 npm run android
 npm run ios
 ```
+
+- else you can open the app on your smartphone using the **Expo Go** app.
+
+## Screenshots
+
+<img src="./assets/images/screenshots/home.png" alt="Todo App Screenshot Home Tab" width="186" />
+<img src="./assets/images/screenshots/new.png" alt="Todo App Screenshot New Todo" width="186" />
+<img src="./assets/images/screenshots/edit.png" alt="Todo App Screenshot Edit Todo" width="186" />
+<img src="./assets/images/screenshots/settings.png" alt="Todo App Screenshot Settings Tab" width="186" />
