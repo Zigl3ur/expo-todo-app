@@ -23,7 +23,12 @@ export default function SettingsScreen() {
     setSwitchValue(settings.deleteOnComplete);
   }, [setSwitchValue, settings.deleteOnComplete]);
 
-  const handleTodosDrop = () => {
+  // save settings when they change
+  useEffect(() => {
+    SaveSettings(settings);
+  }, [settings]);
+
+  const handleTodosDelete = () => {
     Alert.alert(
       "Delete All Todos",
       "Are you sure, you want to delete all todos ?",
@@ -61,10 +66,12 @@ export default function SettingsScreen() {
   };
 
   const handleSwitch = () => {
-    const newSettings = { deleteOnComplete: !settings.deleteOnComplete };
+    const newSettings = {
+      ...settings,
+      deleteOnComplete: !settings.deleteOnComplete,
+    };
     setSettings(newSettings);
     setSwitchValue(newSettings.deleteOnComplete);
-    SaveSettings(newSettings);
   };
 
   return (
@@ -86,7 +93,7 @@ export default function SettingsScreen() {
             onChange={handleSwitch}
             text="Delete todo on complete"
           />
-          <Pressable onPress={handleTodosDrop} style={styles.pressable}>
+          <Pressable onPress={handleTodosDelete} style={styles.pressable}>
             <FontAwesome5 name="trash" size={20} color={colors.red} />
             <Text style={[styles.text, { color: colors.red }]}>
               Delete all todos

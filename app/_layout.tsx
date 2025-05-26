@@ -1,4 +1,5 @@
 import LoadingScreen from "@/components/loading-screen";
+import { colors } from "@/lib/colors";
 import { RefetchContext, SettingsContext } from "@/lib/contexts";
 import { ReadSettings } from "@/lib/settings";
 import { settings } from "@/types/types";
@@ -8,6 +9,7 @@ import { Suspense, useEffect, useState } from "react";
 
 export default function RootLayout() {
   const [settings, setSettings] = useState<settings>({
+    priorityColor: colors.red,
     deleteOnComplete: false,
   });
   const [refetch, setRefetch] = useState<boolean>(false);

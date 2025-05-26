@@ -105,6 +105,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    fontWeight: "900",
+    fontWeight: "800",
   },
 });

@@ -1,3 +1,5 @@
+import { ColorValue } from "react-native";
+
 export type todo = {
   id: number;
   title: string;
@@ -9,5 +11,6 @@ export type todo = {
 };
 
 export type settings = {
+  priorityColor: ColorValue;
   deleteOnComplete: boolean;
 };

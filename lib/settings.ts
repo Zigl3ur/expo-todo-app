@@ -1,5 +1,6 @@
 import { settings } from "@/types/types";
 import * as FileSystem from "expo-file-system";
+import { colors } from "./colors";
 
 export async function SaveSettings(settings: settings) {
   const filePath = FileSystem.cacheDirectory + "settings.json";
@@ -13,8 +14,13 @@ export async function ReadSettings(): Promise<settings> {
 
   const fileInfo = await FileSystem.getInfoAsync(filePath);
   if (!fileInfo.exists) {
-    SaveSettings({ deleteOnComplete: false });
-    return { deleteOnComplete: false };
+    const defaultSettings = {
+      deleteOnComplete: false,
+      priorityColor: colors.red,
+    };
+
+    SaveSettings(defaultSettings);
+    return defaultSettings;
   }
 
   const data = await FileSystem.readAsStringAsync(filePath);

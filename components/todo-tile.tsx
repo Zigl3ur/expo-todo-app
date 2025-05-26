@@ -17,7 +17,7 @@ export default function TodoTile({ todo }: TodoProps) {
   const { settings } = useSettings();
   const { refetch, setRefetch } = useRefetchTodos();
 
-  const [checked, setChecked] = useState<boolean>(todo.isDone);
+  const [checked, setChecked] = useState<boolean>(Boolean(todo.isDone));
 
   const validateTodo = () => {
     if (settings.deleteOnComplete) {
@@ -42,13 +42,27 @@ export default function TodoTile({ todo }: TodoProps) {
       <View style={styles.card}>
         <View style={styles.content}>
           <Checkbox
-            color={checked ? colors.lightGray : colors.darkGray}
+            color={
+              todo.priority
+                ? settings.priorityColor
+                : checked
+                ? colors.lightGray
+                : colors.darkGray
+            }
             value={checked}
             onValueChange={validateTodo}
           />
 
           {/* Todo Title */}
-          <Text style={[styles.title, checked && styles.titleDone]}>
+          <Text
+            style={[
+              styles.title,
+              checked && styles.titleDone,
+              todo.priority && {
+                color: settings.priorityColor,
+              },
+            ]}
+          >
             {todo.title}
           </Text>
         </View>
@@ -56,7 +70,11 @@ export default function TodoTile({ todo }: TodoProps) {
         {/* Todo Desc */}
         {todo.description && (
           <Text
-            style={[styles.description, checked && { color: colors.lightGray }]}
+            style={[
+              styles.description,
+              checked && { color: colors.lightGray },
+              todo.priority && { color: settings.priorityColor },
+            ]}
           >
             {todo.description}
           </Text>
