@@ -13,10 +13,14 @@ export function useRefetchTodos() {
   return context;
 }
 
+/**
+ * hook to access the settings context that store the settings
+ * @returns settings context
+ */
 export function useSettings() {
   const context = useContext(SettingsContext);
   if (context === undefined) {
-    throw new Error("useSettings must be used within a RefetchProvider");
+    throw new Error("useSettings must be used within a SettingsProvider");
   }
   return context;
 }
