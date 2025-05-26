@@ -31,7 +31,7 @@ npm install
 3. Run the app
 
 ```bash
-npx expo start
+npm run start
 ```
 
 4. Open the app
