@@ -41,6 +41,6 @@ npx expo start
 - Or use an Android emulator or iOS simulator
 
 ```bash
-npx run android
-npx run ios
+npm run android
+npm run ios
 ```
