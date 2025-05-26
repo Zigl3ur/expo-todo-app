@@ -25,6 +25,12 @@ export async function getTodos(db: SQLiteDatabase): Promise<todo[]> {
   return result as todo[];
 }
 
+/**
+ * search todos base on the given string (search for title)
+ * @param db the SQLite database connection
+ * @param title the todo title to search for
+ * @returns array of corresponding todos
+ */
 export async function searchTodos(
   db: SQLiteDatabase,
   title: string
