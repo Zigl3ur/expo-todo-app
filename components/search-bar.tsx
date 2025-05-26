@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.lightGray,
     borderRadius: 8,
-    // issue on text input, vertical padding that vertical padding was not the same between IOS and android
+    // issue on text input, vertical padding was not the same between IOS and android
     // cause android apply a vertical padding by default to text input i guess
     ...Platform.select({
       android: {
