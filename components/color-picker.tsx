@@ -12,7 +12,7 @@ export default function ColorPicker({ color, onChange }: ColorPickerProps) {
     <Picker selectedValue={color} onValueChange={onChange}>
       {colors.priorityColors.map((color) => (
         <Picker.Item
-          key={color.name}
+          key={color.value}
           label={color.name}
           value={color.value}
           color={color.value}
