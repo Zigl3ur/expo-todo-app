@@ -1,12 +1,20 @@
+import ColorPicker from "@/components/color-picker";
 import SwitchSettings from "@/components/custom-switch";
 import { colors } from "@/lib/colors";
 import { dropTodos, insertTestData } from "@/lib/db";
 import { useRefetchTodos, useSettings } from "@/lib/hooks";
 import { SaveSettings } from "@/lib/settings";
-import { FontAwesome5 } from "@expo/vector-icons";
+import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";
-import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  ColorValue,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SettingsScreen() {
@@ -14,6 +22,7 @@ export default function SettingsScreen() {
   const { refetch, setRefetch } = useRefetchTodos();
   const { settings, setSettings } = useSettings();
 
+  const [pickerColor, setPickerColor] = useState<ColorValue>(colors.red);
   const [switchValue, setSwitchValue] = useState<boolean>(
     settings.deleteOnComplete
   );
@@ -21,7 +30,8 @@ export default function SettingsScreen() {
   // fetch settings
   useEffect(() => {
     setSwitchValue(settings.deleteOnComplete);
-  }, [setSwitchValue, settings.deleteOnComplete]);
+    setPickerColor(settings.priorityColor);
+  }, [setSwitchValue, settings.deleteOnComplete, settings.priorityColor]);
 
   // save settings when they change
   useEffect(() => {
@@ -74,6 +84,15 @@ export default function SettingsScreen() {
     setSwitchValue(newSettings.deleteOnComplete);
   };
 
+  const handlePickerChange = (value: ColorValue) => {
+    const newSettings = {
+      ...settings,
+      priorityColor: value,
+    };
+    setSettings(newSettings);
+    setPickerColor(value);
+  };
+
   return (
     <SafeAreaView style={styles.safeview}>
       <View>
@@ -83,6 +102,13 @@ export default function SettingsScreen() {
             <FontAwesome5 name="database" size={20} />
             <Text style={styles.text}>Add test data</Text>
           </Pressable>
+          <View>
+            <View style={styles.pressable}>
+              <Ionicons name="color-palette" size={20} />
+              <Text style={styles.text}>Todo priority color</Text>
+            </View>
+            <ColorPicker color={pickerColor} onChange={handlePickerChange} />
+          </View>
         </View>
       </View>
       <View>
@@ -120,8 +146,9 @@ const styles = StyleSheet.create({
     gap: 25,
   },
   pressable: {
-    paddingVertical: 10,
     flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 10,
     alignContent: "center",
     gap: 8,
   },
