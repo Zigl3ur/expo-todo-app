@@ -1,4 +1,5 @@
 import { colors } from "@/lib/colors";
+import { useThemeColors } from "@/lib/hooks";
 import { Ref } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 
@@ -21,25 +22,36 @@ export default function Input({
   onChange,
   onSubmitEditing,
 }: InputProps) {
+  const { theme } = useThemeColors();
+
   return (
     <View>
       <TextInput
         style={[
           styles.input,
+          {
+            color: theme.text,
+            backgroundColor: theme.foreground,
+            borderColor: theme.border,
+          },
           variant === "full" && { height: 100 },
-          error && styles.errorBorder,
+          error && [styles.errorBorder, { borderColor: theme.accent }],
         ]}
         ref={inputRef}
         placeholder={placeholder}
         value={value}
         returnKeyType="next"
-        placeholderTextColor={"white"}
+        placeholderTextColor={theme.border}
         onChangeText={(e) => onChange(e)}
         onSubmitEditing={onSubmitEditing}
         multiline={variant === "full"}
         textAlignVertical={variant === "full" ? "top" : "auto"}
       />
-      {error && <Text style={styles.errorLabel}>{error}</Text>}
+      {error && (
+        <Text style={[styles.errorLabel, { color: theme.accent }]}>
+          {error}
+        </Text>
+      )}
     </View>
   );
 }
@@ -47,19 +59,15 @@ export default function Input({
 const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
-    borderColor: colors.ultraLightGray,
     padding: 15,
     fontSize: 16,
-    backgroundColor: colors.ultraLightGray,
     borderRadius: 10,
   },
   errorLabel: {
-    color: colors.red,
     paddingLeft: 5,
     paddingTop: 2,
   },
   errorBorder: {
     borderWidth: 1,
-    borderColor: colors.red,
   },
 });

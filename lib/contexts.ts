@@ -20,3 +20,14 @@ type SettingsContextType = {
 export const SettingsContext = createContext<SettingsContextType | undefined>(
   undefined
 );
+
+export type ThemeValue = "light" | "dark" | "system";
+
+type ThemeContextType = {
+  theme: ThemeValue;
+  setTheme: (value: ThemeValue) => void;
+};
+
+export const ThemeContext = createContext<ThemeContextType | undefined>(
+  undefined
+);

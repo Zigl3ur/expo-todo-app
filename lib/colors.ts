@@ -1,4 +1,22 @@
 export const colors = {
+  light: {
+    background: "#f2f2f2",
+    foreground: "#ffffff",
+    text: "#595959",
+    primary: "#3f8ef7",
+    accent: "#cf1100",
+    border: "#9c9c9c",
+  },
+
+  dark: {
+    background: "#0f0f0f",
+    foreground: "#1e1e1e",
+    text: "#e4e4e4",
+    primary: "#3f8ef7",
+    accent: "#cf1100",
+    border: "#404040",
+  },
+
   blue: "#3f8ef7",
   red: "#cf1100",
   darkGray: "#595959",

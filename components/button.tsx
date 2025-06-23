@@ -1,4 +1,4 @@
-import { colors } from "@/lib/colors";
+import { useThemeColors } from "@/lib/hooks";
 import { ColorValue, Pressable, StyleSheet, Text, View } from "react-native";
 
 interface ButtonProps {
@@ -14,13 +14,15 @@ export default function Button({
   disabled,
   onPress,
 }: ButtonProps) {
+  const { theme } = useThemeColors();
+
   return (
     <Pressable onPress={onPress} disabled={disabled}>
       <View
         style={[
           styles.view,
           { backgroundColor: color },
-          disabled && { backgroundColor: colors.gray },
+          disabled && { backgroundColor: theme.border },
         ]}
       >
         {typeof content === "string" ? (

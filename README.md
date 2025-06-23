@@ -46,5 +46,5 @@ npm run ios
 ## Screenshots
 
 <div align="center">
-<img src="./assets/images/screenshots/home.png" alt="Todo App Screenshot Home Tab" width="186" /> <img src="./assets/images/screenshots/new.png" alt="Todo App Screenshot New Todo" width="186" /> <img src="./assets/images/screenshots/edit.png" alt="Todo App Screenshot Edit Todo" width="186" /> <img src="./assets/images/screenshots/settings.png" alt="Todo App Screenshot Settings Tab" width="186" />
+<img src="./.github/README/screenshots/home.png" alt="Todo App Screenshot Home Tab" width="186" /> <img src="./.github/README/screenshots/new.png" alt="Todo App Screenshot New Todo" width="186" /> <img src="./.github/README/screenshots/edit.png" alt="Todo App Screenshot Edit Todo" width="186" /> <img src="./.github/README/screenshots/settings.png" alt="Todo App Screenshot Settings Tab" width="186" />
 </div>

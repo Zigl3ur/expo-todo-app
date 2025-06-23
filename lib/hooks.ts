@@ -1,5 +1,7 @@
 import { useContext } from "react";
-import { RefetchContext, SettingsContext } from "./contexts";
+import { useColorScheme } from "react-native";
+import { RefetchContext, SettingsContext, ThemeContext } from "./contexts";
+import { colors } from "./colors";
 
 /**
  * hook to access the refetch context that allow to refetch list of todos
@@ -23,4 +25,23 @@ export function useSettings() {
     throw new Error("useSettings must be used within a SettingsProvider");
   }
   return context;
+}
+
+export function useThemeColors() {
+  const context = useContext(ThemeContext);
+  const { settings } = useSettings();
+  const colorScheme = useColorScheme();
+
+  if (context === undefined) {
+    throw new Error("useThemeColors must be used within a ThemeProvider");
+  }
+
+  const actualTheme =
+    settings.theme === "system" ? colorScheme || "light" : settings.theme;
+
+  return {
+    actualTheme: settings.theme,
+    theme: actualTheme === "dark" ? colors.dark : colors.light,
+    setTheme: context.setTheme,
+  };
 }

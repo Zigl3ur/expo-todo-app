@@ -1,5 +1,5 @@
-import { colors } from "@/lib/colors";
 import { init } from "@/lib/db";
+import { useThemeColors } from "@/lib/hooks";
 import { Ionicons } from "@expo/vector-icons";
 import FontAwesome from "@expo/vector-icons/FontAwesome5";
 import { Tabs } from "expo-router";
@@ -8,6 +8,7 @@ import { useEffect } from "react";
 
 export default function TabsLayout() {
   const db = useSQLiteContext();
+  const { theme } = useThemeColors();
 
   // init query to populate db with one placeholder todo
   useEffect(() => {
@@ -17,7 +18,14 @@ export default function TabsLayout() {
   }, [db]);
 
   return (
-    <Tabs>
+    <Tabs
+      screenOptions={{
+        tabBarStyle: {
+          backgroundColor: theme.foreground,
+          borderTopColor: theme.foreground,
+        },
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
@@ -27,7 +35,7 @@ export default function TabsLayout() {
             <FontAwesome
               name="tasks"
               size={20}
-              color={focused ? colors.blue : colors.darkGray}
+              color={focused ? theme.primary : theme.text}
             />
           ),
         }}
@@ -41,7 +49,7 @@ export default function TabsLayout() {
             <Ionicons
               name="settings-sharp"
               size={20}
-              color={focused ? colors.blue : colors.darkGray}
+              color={focused ? theme.primary : theme.text}
             />
           ),
         }}

@@ -1,4 +1,5 @@
 import { ColorValue } from "react-native";
+import { ThemeValue } from "@/lib/contexts";
 
 export type todo = {
   id: number;
@@ -11,6 +12,7 @@ export type todo = {
 };
 
 export type settings = {
+  theme: ThemeValue;
   priorityColor: ColorValue;
   deleteOnComplete: boolean;
 };

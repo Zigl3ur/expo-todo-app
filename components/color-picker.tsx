@@ -9,7 +9,7 @@ interface ColorPickerProps {
 
 export default function ColorPicker({ color, onChange }: ColorPickerProps) {
   return (
-    <Picker selectedValue={color} onValueChange={onChange}>
+    <Picker selectedValue={color} onValueChange={onChange} >
       {colors.priorityColors.map((color) => (
         <Picker.Item
           key={color.value}

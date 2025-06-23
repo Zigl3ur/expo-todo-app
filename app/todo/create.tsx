@@ -1,9 +1,8 @@
 import Button from "@/components/button";
 import CustomSwitch from "@/components/custom-switch";
 import Input from "@/components/input";
-import { colors } from "@/lib/colors";
 import { createTodo } from "@/lib/db";
-import { useRefetchTodos } from "@/lib/hooks";
+import { useRefetchTodos, useThemeColors } from "@/lib/hooks";
 import { router } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useRef, useState } from "react";
@@ -12,6 +11,7 @@ import { StyleSheet, Text, TextInput, View } from "react-native";
 export default function CreateTodoScreen() {
   const db = useSQLiteContext();
   const { refetch, setRefetch } = useRefetchTodos();
+  const { theme } = useThemeColors();
 
   const descriptionInput = useRef<TextInput>(null);
   const [title, setTitle] = useState<string>("");
@@ -33,8 +33,8 @@ export default function CreateTodoScreen() {
   };
 
   return (
-    <View style={styles.view}>
-      <Text style={styles.title}>New Todo</Text>
+    <View style={[styles.view, { backgroundColor: theme.background }]}>
+      <Text style={[styles.title, { color: theme.text }]}>New Todo</Text>
 
       <View style={{ gap: 10 }}>
         <Input
@@ -59,7 +59,7 @@ export default function CreateTodoScreen() {
       />
       <Button
         content="Save"
-        color={colors.blue}
+        color={theme.primary}
         disabled={titleError ? true : false}
         onPress={handleCreateTodo}
       />

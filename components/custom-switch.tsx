@@ -1,3 +1,4 @@
+import { useThemeColors } from "@/lib/hooks";
 import { Platform, Pressable, StyleSheet, Switch, Text } from "react-native";
 
 interface SwitchSettingsProps {
@@ -11,10 +12,12 @@ export default function CustomSwitch({
   value,
   onChange,
 }: SwitchSettingsProps) {
+  const { theme } = useThemeColors();
+
   return (
     <Pressable style={styles.pressable} onPress={() => onChange(!value)}>
       <Switch value={value} onValueChange={onChange} />
-      <Text style={styles.text}>{text}</Text>
+      <Text style={[styles.text, { color: theme.text }]}>{text}</Text>
     </Pressable>
   );
 }

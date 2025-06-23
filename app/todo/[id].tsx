@@ -1,19 +1,20 @@
 import Button from "@/components/button";
 import CustomSwitch from "@/components/custom-switch";
 import Input from "@/components/input";
-import { colors } from "@/lib/colors";
 import { deleteTodoById, editTodos, getTodosById } from "@/lib/db";
-import { useRefetchTodos } from "@/lib/hooks";
+import { useRefetchTodos, useThemeColors } from "@/lib/hooks";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useRef, useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function EditTodoScreen() {
   const { id } = useLocalSearchParams();
   const db = useSQLiteContext();
   const { refetch, setRefetch } = useRefetchTodos();
+  const { theme } = useThemeColors();
 
   const descriptionInput = useRef<TextInput>(null);
   const [title, setTitle] = useState<string>("");
@@ -51,8 +52,8 @@ export default function EditTodoScreen() {
   };
 
   return (
-    <View style={styles.view}>
-      <Text style={styles.title}>Edit Todo</Text>
+    <View style={[styles.view, { backgroundColor: theme.background }]}>
+      <Text style={[styles.title, { color: theme.text }]}>Edit Todo</Text>
       <View style={{ gap: 10 }}>
         <Input
           placeholder="Title..."
@@ -78,14 +79,14 @@ export default function EditTodoScreen() {
         <View style={{ flex: 1 }}>
           <Button
             content="Save"
-            color={colors.blue}
+            color={theme.primary}
             disabled={titleError ? true : false}
             onPress={handleEditTodo}
           />
         </View>
         <Button
           content={<FontAwesome5 name="trash" size={20} color="white" />}
-          color={colors.red}
+          color={theme.accent}
           onPress={handleDeleteTodo}
         />
       </View>

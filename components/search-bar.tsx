@@ -1,4 +1,4 @@
-import { colors } from "@/lib/colors";
+import { useThemeColors } from "@/lib/hooks";
 import { Ionicons } from "@expo/vector-icons";
 import { Platform, StyleSheet, TextInput, View } from "react-native";
 
@@ -13,20 +13,27 @@ export default function SearchBar({
   value,
   onChange,
 }: SearchBarProps) {
+  const { theme } = useThemeColors();
+
   return (
-    <View style={styles.view}>
-      <Ionicons name="search" size={20} />
+    <View
+      style={[
+        styles.view,
+        { backgroundColor: theme.foreground, borderColor: theme.border },
+      ]}
+    >
+      <Ionicons name="search" size={20} color={theme.text} />
       <TextInput
         style={styles.input}
         value={value}
         onChangeText={(e) => onChange(e)}
         placeholder={placeholder}
-        placeholderTextColor={colors.darkGray}
+        placeholderTextColor={theme.text}
       />
       <Ionicons
         name="close-circle"
         size={20}
-        color={colors.darkGray}
+        color={theme.text}
         onPress={() => onChange("")}
       />
     </View>
@@ -36,11 +43,9 @@ export default function SearchBar({
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    backgroundColor: "white",
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 1,
-    borderColor: colors.lightGray,
     borderRadius: 8,
     // issue on text input, vertical padding was not the same between IOS and android
     // cause android apply a vertical padding by default to text input i guess

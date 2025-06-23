@@ -1,6 +1,7 @@
 import { settings } from "@/types/types";
 import * as FileSystem from "expo-file-system";
 import { colors } from "./colors";
+import { ThemeValue } from "@/lib/contexts";
 
 export async function SaveSettings(settings: settings) {
   const filePath = FileSystem.cacheDirectory + "settings.json";
@@ -15,8 +16,9 @@ export async function ReadSettings(): Promise<settings> {
   const fileInfo = await FileSystem.getInfoAsync(filePath);
   if (!fileInfo.exists) {
     const defaultSettings = {
+      theme: "system" as ThemeValue,
       deleteOnComplete: false,
-      priorityColor: colors.red,
+      priorityColor: colors.priorityColors[0].value,
     };
 
     SaveSettings(defaultSettings);

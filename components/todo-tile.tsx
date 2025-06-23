@@ -1,5 +1,4 @@
-import { colors } from "@/lib/colors";
-import { useRefetchTodos, useSettings } from "@/lib/hooks";
+import { useRefetchTodos, useSettings, useThemeColors } from "@/lib/hooks";
 import { todo } from "@/types/types";
 import { Checkbox } from "expo-checkbox";
 import { router } from "expo-router";
@@ -15,6 +14,7 @@ interface TodoProps {
 export default function TodoTile({ todo }: TodoProps) {
   const db = useSQLiteContext();
   const { settings } = useSettings();
+  const { theme } = useThemeColors();
   const { refetch, setRefetch } = useRefetchTodos();
 
   const [checked, setChecked] = useState<boolean>(Boolean(todo.isDone));
@@ -39,16 +39,10 @@ export default function TodoTile({ todo }: TodoProps) {
       onPress={validateTodo}
       onLongPress={() => router.navigate(`/todo/${todo.id}`)}
     >
-      <View style={styles.card}>
+      <View style={[styles.card, { backgroundColor: theme.foreground }]}>
         <View style={styles.content}>
           <Checkbox
-            color={
-              todo.priority
-                ? settings.priorityColor
-                : checked
-                ? colors.lightGray
-                : colors.darkGray
-            }
+            color={checked ? theme.border : theme.primary}
             value={checked}
             onValueChange={validateTodo}
           />
@@ -56,11 +50,12 @@ export default function TodoTile({ todo }: TodoProps) {
           {/* Todo Title */}
           <Text
             style={[
-              styles.title,
-              checked && styles.titleDone,
-              todo.priority && {
-                color: settings.priorityColor,
-              },
+              [styles.title, { color: theme.text }],
+              checked && [styles.titleDone, { color: theme.border }],
+              todo.priority &&
+                !checked && {
+                  color: settings.priorityColor,
+                },
             ]}
           >
             {todo.title}
@@ -71,9 +66,8 @@ export default function TodoTile({ todo }: TodoProps) {
         {todo.description && (
           <Text
             style={[
-              styles.description,
-              checked && { color: colors.lightGray },
-              todo.priority && { color: settings.priorityColor },
+              [styles.description, { color: theme.text }],
+              checked && { color: theme.border },
             ]}
           >
             {todo.description}
@@ -89,7 +83,6 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   card: {
-    backgroundColor: "white",
     padding: 16,
     borderRadius: 15,
   },
@@ -105,11 +98,9 @@ const styles = StyleSheet.create({
     fontSize: 26,
   },
   titleDone: {
-    color: colors.lightGray,
     textDecorationLine: "line-through",
   },
   description: {
-    color: colors.darkGray,
     fontSize: 16,
     paddingLeft: 30,
   },

@@ -2,7 +2,7 @@ import AddTodoButton from "@/components/add-todo-button";
 import SearchBar from "@/components/search-bar";
 import TodoTile from "@/components/todo-tile";
 import { getTodos, searchTodos } from "@/lib/db";
-import { useRefetchTodos } from "@/lib/hooks";
+import { useRefetchTodos, useThemeColors } from "@/lib/hooks";
 import { todo } from "@/types/types";
 import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";
@@ -13,6 +13,7 @@ export default function Index() {
   const insets = useSafeAreaInsets();
   const db = useSQLiteContext();
   const { refetch } = useRefetchTodos();
+  const { theme } = useThemeColors();
 
   const [search, setSearch] = useState<string>("");
   const [todos, setTodos] = useState<todo[]>([]);
@@ -37,7 +38,12 @@ export default function Index() {
   }, [db, refetch]);
 
   return (
-    <View style={[styles.view, { paddingTop: insets.top }]}>
+    <View
+      style={[
+        styles.view,
+        { paddingTop: insets.top, backgroundColor: theme.background },
+      ]}
+    >
       <View style={styles.searchView}>
         <SearchBar
           placeholder="Search Todos..."
@@ -54,7 +60,9 @@ export default function Index() {
         </ScrollView>
       ) : (
         <View style={styles.viewNoTodos}>
-          <Text style={styles.textNoTodos}>No todos found</Text>
+          <Text style={[styles.textNoTodos, { color: theme.text }]}>
+            No todos found
+          </Text>
         </View>
       )}
     </View>
