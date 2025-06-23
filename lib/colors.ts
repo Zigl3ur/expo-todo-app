@@ -29,7 +29,6 @@ export const colors = {
     { name: "Orange", value: "#ff8c00" },
     { name: "Lime", value: "#32cd32" },
     { name: "Light Blue", value: "#00bfff" },
-    { name: "Purple", value: "#9370db" },
     { name: "Pink", value: "#ff69b4" },
     { name: "Sea Green", value: "#20b2aa" },
   ],

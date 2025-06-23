@@ -43,7 +43,7 @@ export default function RootLayout() {
         <Suspense fallback={<LoadingScreen />}>
           <SQLiteProvider databaseName="app.db" useSuspense>
             <RefetchContext.Provider value={{ refetch, setRefetch }}>
-              <StatusBar style={theme === "dark" ? "light" : "dark"} />
+              <StatusBar style={actualTheme === "dark" ? "light" : "dark"} />
               <Stack
                 screenOptions={{
                   headerShown: false,

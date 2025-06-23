@@ -20,6 +20,7 @@ export default function TabsLayout() {
   return (
     <Tabs
       screenOptions={{
+        headerShown: false,
         tabBarStyle: {
           backgroundColor: theme.foreground,
           borderTopColor: theme.foreground,
@@ -30,7 +31,6 @@ export default function TabsLayout() {
         name="index"
         options={{
           title: "Todos",
-          headerShown: false,
           tabBarIcon: ({ focused }) => (
             <FontAwesome
               name="tasks"
@@ -44,7 +44,6 @@ export default function TabsLayout() {
         name="settings"
         options={{
           title: "Settings",
-          headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Ionicons
               name="settings-sharp"

@@ -1,5 +1,6 @@
-import ColorPicker from "@/components/color-picker";
+import ColorSelector from "@/components/color-selector";
 import SwitchSettings from "@/components/custom-switch";
+import ThemeSwitcher from "@/components/theme-switcher";
 import { colors } from "@/lib/colors";
 import { ThemeValue } from "@/lib/contexts";
 import { dropTodos, insertTestData } from "@/lib/db";
@@ -25,7 +26,7 @@ export default function SettingsScreen() {
   const { settings, setSettings } = useSettings();
   const { actualTheme, setTheme, theme } = useThemeColors();
 
-  const [pickerColor, setPickerColor] = useState<ColorValue>(
+  const [color, setColor] = useState<ColorValue>(
     colors.priorityColors[0].value
   );
   const [switchValue, setSwitchValue] = useState<boolean>(
@@ -35,7 +36,7 @@ export default function SettingsScreen() {
   // fetch settings
   useEffect(() => {
     setSwitchValue(settings.deleteOnComplete);
-    setPickerColor(settings.priorityColor);
+    setColor(settings.priorityColor);
   }, [setSwitchValue, settings.deleteOnComplete, settings.priorityColor]);
 
   // save settings when they change
@@ -89,22 +90,22 @@ export default function SettingsScreen() {
     setSwitchValue(newSettings.deleteOnComplete);
   };
 
-  const handlePickerChange = (value: ColorValue) => {
-    const newSettings = {
-      ...settings,
-      priorityColor: value,
-    };
-    setSettings(newSettings);
-    setPickerColor(value);
-  };
-
-  const setSettingsTheme = (value: ThemeValue) => {
+  const handleTheme = (value: ThemeValue) => {
     const newSettings = {
       ...settings,
       theme: value,
     };
     setSettings(newSettings);
     setTheme(value);
+  };
+
+  const handleColorChange = (value: ColorValue) => {
+    const newSettings = {
+      ...settings,
+      priorityColor: value,
+    };
+    setSettings(newSettings);
+    setColor(value);
   };
 
   return (
@@ -125,65 +126,18 @@ export default function SettingsScreen() {
             </Text>
           </Pressable>
           <View>
-            <View style={styles.pressable}>
-              <Ionicons name="color-palette" size={20} color={theme.text} />
-              <Text style={[styles.text, { color: theme.text }]}>Theme</Text>
-            </View>
-            <View style={{ flexDirection: "row", gap: 10 }}>
-              <Pressable
-                onPress={() => setSettingsTheme("light")}
-                style={[
-                  styles.pressable,
-                  {
-                    backgroundColor:
-                      actualTheme === "light" ? theme.border : theme.background,
-                    borderRadius: 10,
-                    paddingHorizontal: 15,
-                  },
-                ]}
-              >
-                <Text style={[styles.text, { color: theme.text }]}>Light</Text>
-              </Pressable>
-              <Pressable
-                onPress={() => setSettingsTheme("dark")}
-                style={[
-                  styles.pressable,
-                  {
-                    backgroundColor:
-                      actualTheme === "dark" ? theme.border : theme.background,
-                    borderRadius: 10,
-                    paddingHorizontal: 15,
-                  },
-                ]}
-              >
-                <Text style={[styles.text, { color: theme.text }]}>Dark</Text>
-              </Pressable>
-              <Pressable
-                onPress={() => setSettingsTheme("system")}
-                style={[
-                  styles.pressable,
-                  {
-                    backgroundColor:
-                      actualTheme === "system"
-                        ? theme.border
-                        : theme.background,
-                    borderRadius: 10,
-                    paddingHorizontal: 15,
-                  },
-                ]}
-              >
-                <Text style={[styles.text, { color: theme.text }]}>System</Text>
-              </Pressable>
-            </View>
+            <ThemeSwitcher
+              actualTheme={actualTheme}
+              theme={theme}
+              onChange={handleTheme}
+            />
           </View>
           <View>
-            <View style={styles.pressable}>
-              <Ionicons name="color-palette" size={20} color={theme.text} />
-              <Text style={[styles.text, { color: theme.text }]}>
-                Todo priority color
-              </Text>
-            </View>
-            <ColorPicker color={pickerColor} onChange={handlePickerChange} />
+            <ColorSelector
+              theme={theme}
+              color={color}
+              onChange={handleColorChange}
+            />
           </View>
         </View>
 
