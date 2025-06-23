@@ -2,11 +2,11 @@ import ColorSelector from "@/components/color-selector";
 import SwitchSettings from "@/components/custom-switch";
 import ThemeSwitcher from "@/components/theme-switcher";
 import { colors } from "@/lib/colors";
-import { ThemeValue } from "@/lib/contexts";
 import { dropTodos, insertTestData } from "@/lib/db";
 import { useRefetchTodos, useSettings, useThemeColors } from "@/lib/hooks";
 import { SaveSettings } from "@/lib/settings";
-import { FontAwesome5, Ionicons } from "@expo/vector-icons";
+import { ThemeValue } from "@/types/types";
+import { FontAwesome5 } from "@expo/vector-icons";
 import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";
 import {

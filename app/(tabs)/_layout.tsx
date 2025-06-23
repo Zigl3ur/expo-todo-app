@@ -1,5 +1,5 @@
 import { init } from "@/lib/db";
-import { useThemeColors } from "@/lib/hooks";
+import { useRefetchTodos, useThemeColors } from "@/lib/hooks";
 import { Ionicons } from "@expo/vector-icons";
 import FontAwesome from "@expo/vector-icons/FontAwesome5";
 import { Tabs } from "expo-router";
@@ -9,13 +9,17 @@ import { useEffect } from "react";
 export default function TabsLayout() {
   const db = useSQLiteContext();
   const { theme } = useThemeColors();
+  const { setRefetch } = useRefetchTodos();
 
   // init query to populate db with one placeholder todo
   useEffect(() => {
-    const initQuery = async () => await init(db);
+    const initQuery = async () => {
+      await init(db);
+      setRefetch(true);
+    };
 
     initQuery();
-  }, [db]);
+  }, [db, setRefetch]);
 
   return (
     <Tabs

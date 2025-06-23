@@ -1,5 +1,4 @@
 import { ColorValue } from "react-native";
-import { ThemeValue } from "@/lib/contexts";
 
 export type todo = {
   id: number;
@@ -10,6 +9,8 @@ export type todo = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type ThemeValue = "light" | "dark" | "system";
 
 export type settings = {
   theme: ThemeValue;

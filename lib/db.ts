@@ -7,10 +7,9 @@ import { SQLiteDatabase } from "expo-sqlite";
  * @param db the SQLite database connection
  */
 export async function init(db: SQLiteDatabase) {
-  // TODO: fix this init query
   await db.execAsync(`
     CREATE TABLE IF NOT EXISTS todos (id integer PRIMARY KEY AUTOINCREMENT NOT NULL, title text NOT NULL, description text NOT NULL, priority integer DEFAULT 0 NOT NULL, isDone integer DEFAULT 0 NOT NULL, createdAt text DEFAULT CURRENT_TIMESTAMP NOT NULL, updatedAt text DEFAULT CURRENT_TIMESTAMP NOT NULL);
-    INSERT INTO todos (title, description) SELECT 'Welcome !', 'Create your first todo by clicking on the plus sign in the top right corner.' WHERE ((SELECT COUNT(*) FROM todos) < 1);`); // TODO
+    INSERT INTO todos (title, description, priority) SELECT 'Welcome !', 'Create your first todo by clicking on the plus sign in the top right corner.', 0 WHERE ((SELECT COUNT(*) FROM todos) < 1);`);
 }
 
 /**

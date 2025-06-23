@@ -1,13 +1,8 @@
 import LoadingScreen from "@/components/loading-screen";
 import { colors } from "@/lib/colors";
-import {
-  RefetchContext,
-  SettingsContext,
-  ThemeContext,
-  ThemeValue,
-} from "@/lib/contexts";
+import { RefetchContext, SettingsContext, ThemeContext } from "@/lib/contexts";
 import { ReadSettings } from "@/lib/settings";
-import { settings } from "@/types/types";
+import { settings, ThemeValue } from "@/types/types";
 import { Stack } from "expo-router";
 import { SQLiteProvider } from "expo-sqlite";
 import { Suspense, useEffect, useState } from "react";

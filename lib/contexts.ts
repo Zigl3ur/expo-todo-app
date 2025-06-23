@@ -1,4 +1,4 @@
-import { settings } from "@/types/types";
+import { settings, ThemeValue } from "@/types/types";
 import { createContext } from "react";
 
 // refetch context allow to refetch todos when they are deleted in settings page
@@ -20,8 +20,6 @@ type SettingsContextType = {
 export const SettingsContext = createContext<SettingsContextType | undefined>(
   undefined
 );
-
-export type ThemeValue = "light" | "dark" | "system";
 
 type ThemeContextType = {
   theme: ThemeValue;

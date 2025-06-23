@@ -1,5 +1,5 @@
 import { colors } from "@/lib/colors";
-import { ThemeValue } from "@/lib/contexts";
+import { ThemeValue } from "@/types/types";
 import { Ionicons } from "@expo/vector-icons";
 import { View, Pressable, Text, StyleSheet } from "react-native";
 
